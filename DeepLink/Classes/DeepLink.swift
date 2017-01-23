@@ -145,20 +145,22 @@ public class RouteManager {
         objc_sync_enter(self)
     }
     
-    public func handle(_ url: URL, complete: (() -> Void)? = nil, error: ((String) -> Void)? = nil, progress: ((Double) -> Void)? = nil) {
+    @discardableResult public func handle(_ url: URL, complete: (() -> Void)? = nil, error: ((String) -> Void)? = nil, progress: ((Double) -> Void)? = nil) -> Bool {
         let urlWrapper = AnyURLWrapper(url)
         var handler: URLHandler?
         objc_sync_enter(self)
         for (_, item) in handlers.enumerated() {
             if item.canHandle(url: urlWrapper) {
                 handler = item
-                break
             }
         }
         objc_sync_exit(self)
         
         if let handler = handler {
             handler.handle(url: urlWrapper, context: AnyURLHandlerContext(completeBlock: complete, progressBlock: progress, errorBlock: error))
+            return true
+        } else {
+            return false
         }
     }
 }
