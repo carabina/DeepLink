@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.summary          = 'Open URL more easily'
 
   s.description      = <<-DESC
-  Open URL more easily
+  Open ViewController cross URL
                        DESC
   s.homepage         = 'https://github.com/7ulipa/DeepLink'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
